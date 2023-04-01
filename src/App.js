@@ -2,7 +2,6 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  console.log("3차 테스트중")
   return (
     <div className="App">
       <header className="App-header">
