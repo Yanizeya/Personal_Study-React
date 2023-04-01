@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  console.log("master브랜치에서 테스트중입니다")
   return (
     <div className="container">
         <h1>hello world</h1>
