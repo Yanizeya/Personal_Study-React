@@ -3,11 +3,23 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  var [funcShow, setFuncShow] = useState(true);
+  var [classShow, setClassShow] = useState(true);
   return (
     <div className="container">
         <h1>hello world</h1>
-        <FuncComp initNumber={2}></FuncComp>
-        <ClassComp initNumber={2}></ClassComp>
+        <input type="button" value="remove func" onClick={
+          function(){
+            setFuncShow(false)
+          }
+        }></input>
+        <input type="button" value="remove class" onClick={
+          function(){
+            setClassShow(false)
+          }
+        }></input>
+        {funcShow ? <FuncComp initNumber={2}></FuncComp> : null}
+        {classShow ? <ClassComp initNumber={2}></ClassComp> : null}
     </div>
   );
 }
@@ -20,13 +32,19 @@ function FuncComp(props){
 
   useEffect(function(){
     console.log('%cfunc => useEffect A (componentDidMount & componentDidUpdate)'+(++funcId), funcStyle);
-    document.title = number + ' : ' +date;
-  });
+    document.title = number;
+    return function(){
+      console.log('%cfunc => useEffect number return (componentDidMount & componentDidUpdate)' +(++funcId), funcStyle);
+    }
+  }, []);
+
   useEffect(function(){
     console.log('%cfunc => useEffect B (componentDidMount & componentDidUpdate)'+(++funcId), funcStyle);
-    document.title = number + ' : ' +date;
-  })
-  
+    document.title = date;
+    return function(){
+      console.log('%cfunc => useEffect date return (componentDidMount & componentDidUpdate)' +(++funcId), funcStyle);
+    }
+  }, []);
   console.log('%cfunc => render ' +(++funcId), funcStyle);
   return(
     <div className="container">
