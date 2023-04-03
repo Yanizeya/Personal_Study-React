@@ -19,9 +19,13 @@ function FuncComp(props){
   var [date, setDate] = useState(new Date().toString());
 
   useEffect(function(){
-    console.log('%cfunc => useEffect '+(++funcId), funcStyle);
+    console.log('%cfunc => useEffect A (componentDidMount & componentDidUpdate)'+(++funcId), funcStyle);
     document.title = number + ' : ' +date;
   });
+  useEffect(function(){
+    console.log('%cfunc => useEffect B (componentDidMount & componentDidUpdate)'+(++funcId), funcStyle);
+    document.title = number + ' : ' +date;
+  })
   
   console.log('%cfunc => render ' +(++funcId), funcStyle);
   return(
