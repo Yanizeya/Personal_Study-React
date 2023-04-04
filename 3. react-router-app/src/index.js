@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {HashRouter, BrowserRouter, Route, Routes, Link, NavLink, useParams } from 'react-router-dom';
+import {HashRouter, BrowserRouter, Route, Routes, Link, NavLink, useParams, Outlet } from 'react-router-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
@@ -22,21 +22,33 @@ var contents = [
 ];
 
 function Topic(){
+    var params = useParams();
+    var topic_id = params.topic_id;
+    console.log(topic_id);
+    var selected_topic = {
+        title: 'Sorry',
+        description:'Not Found'
+    };
+    for(var i=0; i<contents.length; i++){
+        if(contents[i].id === Number(topic_id)){
+            selected_topic = contents[i];
+            break;
+        }
+    }
     return(
         <div>
-            <h3>Topic</h3>
-            Topic...
+            <h3>{selected_topic.title}</h3>
+            {selected_topic.description}
         </div>
     )
 }
 
 function Topics(){
-    var params = useParams();
-    console.log(params);
+    
     var lis = [];
     for(var i=0; i<contents.length; i++){
         lis.push(
-            <li key={contents[i].id}><NavLink to={"/topics/1"}>{contents[i].title}</NavLink></li>
+            <li key={contents[i].id}><NavLink to={"/topics/"+contents[i].id}>{contents[i].title}</NavLink></li>
         );
     }
     return(
@@ -45,12 +57,8 @@ function Topics(){
             <ul>
                 {lis}
             </ul>
-            <Routes>
-                <Route path="/topics/1" element={<Topic/>}/>
-                <Route path="/topics/2" element={<Topic/>}/>
-                <Route path="/topics/3" element={<Topic/>}/>
-            </Routes>
-        </div>
+            <Outlet></Outlet>
+        </div>  
     )
 }
 
@@ -77,7 +85,9 @@ function App(){
             </ul>
             <Routes>    
                 <Route path="/" element={<Home/>}/>
-                <Route path="/topics" element={<Topics/>} />
+                <Route path="/topics" element={<Topics/>}>
+                    <Route path=":topic_id" element={<Topic/>}/> {/* 중첩 라우터 */}
+                </Route>
                 <Route path="/contact" element={<Contact/>} />
             </Routes>
         </div>
