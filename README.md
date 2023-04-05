@@ -12,11 +12,11 @@ cmd 창에서 아래의 명령어 입력해 실행하세요
 
 >명령어
 ```
-cd <폴더 이름>
+cd '<폴더 이름>'
 npm run start
 ```
 >예시
 ```
-cd 1. react-app
+cd '1. react-app'
 npm run start
 ```
